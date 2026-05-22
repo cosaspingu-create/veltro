@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELTRO LOGÍSTICA S.L. · Intermediación y Transportes</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,600;0,700;0,800;0,900;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:   #090D0B;
+    --slate: #131A16;
+    --iron:  #1C2420;
+    --steel: #2A3330;
+    --mist:  #687871;
+    --fog:   #98AAA3;
+    --lime:  #B8F442;
+    --lime2: #CCFF55;
+    --white: #F4F7F4;
+    --fd: 'Barlow Condensed', Arial Narrow, sans-serif;
+    --fb: 'Barlow', Arial, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--fb); background: var(--ink); color: var(--white); overflow-x: hidden; }
+
+  /* grain overlay */
+  body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 998;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: .5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 56px; height: 62px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(9,13,11,0.95); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: border-color .3s;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .logo-svg-nav { width: 28px; height: 28px; flex-shrink: 0; }
+  .nav-wordmark {
+    font-family: var(--fd); font-weight: 900; font-size: 20px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--white);
+    line-height: 1;
+  }
+  .nav-wordmark em { color: var(--lime); font-style: normal; }
+  .nav-divider { width: 1px; height: 18px; background: var(--steel); margin: 0 4px; }
+  .nav-sub {
+    font-family: var(--fd); font-size: 10px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase; color: var(--mist);
+  }
+  .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: var(--fd); font-size: 14px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--fog); text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--lime) !important; color: var(--ink) !important;
+    padding: 8px 20px; border-radius: 2px;
+    transition: background .2s, transform .2s !important;
+  }
+  .nav-cta:hover { background: var(--lime2) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 140px 56px 80px; position: relative; z-index: 2;
+  }
+  .hero-right { position: relative; overflow: hidden; background: var(--slate); }
+  .hero-lines {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      -52deg, transparent, transparent 44px,
+      rgba(184,244,66,0.035) 44px, rgba(184,244,66,0.035) 45px
+    );
+  }
+  .hero-ring {
+    position: absolute; border-radius: 50%;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+  }
+  .r1 { width: 560px; height: 560px; border: 1px solid rgba(184,244,66,0.07); }
+  .r2 { width: 360px; height: 360px; border: 1px solid rgba(184,244,66,0.1); }
+  .r3 { width: 180px; height: 180px; border: 1px solid rgba(184,244,66,0.15); background: rgba(184,244,66,0.03); }
+  .hero-mark {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%); z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: var(--fd); font-size: 11px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--lime);
+    margin-bottom: 22px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--lime); }
+  .hero-h1 {
+    font-family: var(--fd);
+    font-size: clamp(68px, 8.5vw, 112px);
+    font-weight: 900; line-height: .9;
+    letter-spacing: -.01em; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-h1 .outline { -webkit-text-stroke: 2px var(--white); color: transparent; }
+  .hero-h1 .hl { color: var(--lime); }
+  .hero-desc {
+    font-size: 16px; font-weight: 300; line-height: 1.8;
+    color: var(--fog); max-width: 400px; margin-bottom: 44px;
+  }
+  .hero-btns { display: flex; gap: 12px; align-items: center; }
+  .btn-p {
+    font-family: var(--fd); font-size: 14px; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase;
+    background: var(--lime); color: var(--ink);
+    padding: 14px 30px; border-radius: 2px; border: none;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 9px;
+    transition: all .25s;
+  }
+  .btn-p:hover { background: var(--lime2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,244,66,.22); }
+  .btn-g {
+    font-family: var(--fd); font-size: 13px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--fog); text-decoration: none;
+    border: 1px solid var(--steel); padding: 13px 26px; border-radius: 2px;
+    transition: all .25s;
+  }
+  .btn-g:hover { border-color: var(--fog); color: var(--white); }
+  .hero-stripe {
+    position: absolute; bottom: 0; left: 0; right: 50%; height: 3px;
+    background: linear-gradient(90deg, var(--lime), transparent); z-index: 3;
+  }
+
+  /* ── TICKER ── */
+  .ticker { background: var(--lime); padding: 11px 0; overflow: hidden; position: relative; z-index: 10; }
+  .ticker-t { display: flex; animation: roll 28s linear infinite; white-space: nowrap; }
+  .ticker-i {
+    font-family: var(--fd); font-size: 12px; font-weight: 900;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink); padding: 0 32px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .ticker-i span { opacity: .3; }
+  @keyframes roll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  /* ── COMMONS ── */
+  .s-ey {
+    font-family: var(--fd); font-size: 11px; font-weight: 700;
+    letter-spacing: .22em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+  }
+  .s-h2 {
+    font-family: var(--fd);
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 900; line-height: .95;
+    letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+  .reveal.on { opacity: 1; transform: translateY(0); }
+
+  /* ── SERVICIOS ── */
+  #servicios { padding: 110px 56px; background: var(--ink); }
+  .srv-hdr { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 72px; align-items: end; }
+  .srv-intro { font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--fog); }
+  .srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--steel); border: 1px solid var(--steel); }
+  .srv {
+    background: var(--slate); padding: 44px 32px;
+    position: relative; overflow: hidden; transition: background .3s; cursor: default;
+  }
+  .srv:hover { background: var(--iron); }
+  .srv::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    background: var(--lime); transform: scaleX(0); transform-origin: left; transition: transform .4s;
+  }
+  .srv:hover::after { transform: scaleX(1); }
+  .srv-n {
+    font-family: var(--fd); font-size: 56px; font-weight: 900;
+    color: var(--steel); line-height: 1; margin-bottom: 20px; transition: color .3s;
+  }
+  .srv:hover .srv-n { color: var(--lime); }
+  .srv-h { font-family: var(--fd); font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 12px; }
+  .srv-p { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--fog); }
+  .srv-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+  .tag {
+    font-family: var(--fd); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid var(--steel); color: var(--mist); padding: 4px 10px; border-radius: 2px; transition: all .2s;
+  }
+  .srv:hover .tag { border-color: rgba(184,244,66,.3); color: var(--lime); }
+
+  /* ── STATS ── */
+  #stats { background: var(--lime); }
+  .stats-g { display: grid; grid-template-columns: repeat(4,1fr); }
+  .st { padding: 56px 36px; border-right: 1px solid rgba(9,13,11,.14); }
+  .st:last-child { border-right: none; }
+  .st-v { font-family: var(--fd); font-size: 68px; font-weight: 900; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+  .st-v sup { font-size: 32px; }
+  .st-l { font-family: var(--fd); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(9,13,11,.55); }
+
+  /* ── PROCESO ── */
+  #proceso { padding: 110px 56px; background: var(--slate); }
+  .proc-g { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; margin-top: 68px; position: relative; }
+  .proc-g::before {
+    content: ''; position: absolute; top: 27px; left: 8%; right: 8%; height: 1px;
+    background: repeating-linear-gradient(90deg, var(--steel) 0, var(--steel) 6px, transparent 6px, transparent 14px);
+  }
+  .paso { padding: 0 18px; text-align: center; }
+  .paso-d {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--iron); border: 2px solid var(--steel);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-family: var(--fd); font-size: 17px; font-weight: 900; color: var(--mist);
+    position: relative; z-index: 2; transition: all .3s;
+  }
+  .paso:hover .paso-d { background: var(--lime); border-color: var(--lime); color: var(--ink); }
+  .paso-t { font-family: var(--fd); font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+  .paso-p { font-size: 12px; font-weight: 300; color: var(--fog); line-height: 1.6; }
+
+  /* ── DIFERENCIAL ── */
+  #diferencial { padding: 110px 56px; background: var(--ink); }
+  .dif-g { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 72px; }
+  .dif {
+    background: var(--slate); padding: 48px 40px;
+    display: flex; gap: 28px; align-items: flex-start; transition: background .3s;
+  }
+  .dif:hover { background: var(--iron); }
+  .dif-ico {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(184,244,66,.07); border: 1px solid rgba(184,244,66,.18);
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  }
+  .dif h3 { font-family: var(--fd); font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .dif p { font-size: 13px; font-weight: 300; color: var(--fog); line-height: 1.7; }
+
+  /* ── CONTACTO ── */
+  #contacto { padding: 110px 56px; background: var(--slate); }
+  .cto-g { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: start; }
+  .cto-l p { font-size: 15px; font-weight: 300; color: var(--fog); line-height: 1.8; margin-bottom: 44px; }
+  .cto-data { display: flex; flex-direction: column; gap: 18px; }
+  .cto-row { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--fog); }
+  .cto-ico {
+    width: 34px; height: 34px; border-radius: 3px;
+    background: rgba(184,244,66,.07); border: 1px solid rgba(184,244,66,.14);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .form { display: flex; flex-direction: column; gap: 14px; }
+  .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .f-g { display: flex; flex-direction: column; gap: 5px; }
+  .f-lbl { font-family: var(--fd); font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); }
+  .f-in, .f-sel, .f-ta {
+    background: var(--iron); border: 1px solid var(--steel); border-radius: 2px;
+    padding: 12px 14px; font-family: var(--fb); font-size: 13px; font-weight: 300;
+    color: var(--white); outline: none; transition: border-color .25s; -webkit-appearance: none;
+  }
+  .f-in::placeholder, .f-ta::placeholder { color: var(--mist); }
+  .f-in:focus, .f-sel:focus, .f-ta:focus { border-color: var(--lime); }
+  .f-ta { resize: vertical; min-height: 100px; }
+  .f-btn {
+    font-family: var(--fd); font-size: 15px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--lime); color: var(--ink); border: none; border-radius: 2px;
+    padding: 17px; cursor: pointer; margin-top: 4px; transition: all .25s;
+  }
+  .f-btn:hover { background: var(--lime2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,244,66,.18); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--ink); border-top: 1px solid var(--steel); padding: 60px 56px 36px; }
+  .ft-g { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; margin-bottom: 56px; }
+  .ft-brand p { font-size: 12px; font-weight: 300; color: var(--mist); margin-top: 12px; max-width: 230px; line-height: 1.7; }
+  .ft-col h4 { font-family: var(--fd); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--lime); margin-bottom: 18px; }
+  .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .ft-col a { font-size: 12px; font-weight: 300; color: var(--mist); text-decoration: none; transition: color .2s; }
+  .ft-col a:hover { color: var(--white); }
+  .ft-bot { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; border-top: 1px solid var(--steel); }
+  .ft-bot p { font-size: 11px; color: var(--mist); }
+  .ft-cnaes { display: flex; gap: 7px; }
+  .cnae { font-family: var(--fd); font-size: 10px; font-weight: 700; letter-spacing: .07em; border: 1px solid var(--steel); color: var(--mist); padding: 4px 9px; border-radius: 2px; }
+
+  /* Logo inline HTML — fallback when fonts not loaded */
+  .logo-text {
+    font-family: var(--fd); font-weight: 900; font-size: 20px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--white); line-height: 1;
+  }
+  .logo-text .lt { color: var(--lime); }
+
+  @media (max-width: 880px) {
+    nav { padding: 0 20px; } .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; } .hero-right { display: none; }
+    .hero-left { padding: 120px 20px 72px; }
+    #servicios, #proceso, #diferencial, #contacto, footer { padding: 72px 20px; }
+    .srv-hdr, .srv-grid, .dif-g, .cto-g, .ft-g { grid-template-columns: 1fr; }
+    .stats-g { grid-template-columns: 1fr 1fr; }
+    .proc-g { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg class="logo-svg-nav" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="4" fill="#1C2420"/>
+      <path d="M5 6L14 22L23 6" stroke="#B8F442" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M2 14H0.5" stroke="#B8F442" stroke-width="1.3" stroke-linecap="round" opacity=".4"/>
+      <path d="M27.5 14H26" stroke="#B8F442" stroke-width="1.3" stroke-linecap="round" opacity=".4"/>
+    </svg>
+    <span class="logo-text">VEL<span class="lt">TRO</span></span>
+    <span class="nav-divider"></span>
+    <span class="nav-sub">Logística</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#diferencial">Diferencial</a></li>
+    <li><a href="#contacto" class="nav-cta">Presupuesto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">VELTRO LOGÍSTICA S.L. · España · Est. 2025</div>
+    <h1 class="hero-h1">
+      <span class="outline">Mover</span><br>
+      <span class="hl">más</span><br>
+      rápido.
+    </h1>
+    <p class="hero-desc">Intermediación al por mayor y transporte de mercancías por carretera. Un único interlocutor para toda tu cadena logística.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-p">
+        Solicitar presupuesto
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5h8M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#servicios" class="btn-g">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-lines"></div>
+    <div class="hero-ring r1"></div>
+    <div class="hero-ring r2"></div>
+    <div class="hero-ring r3"></div>
+    <div class="hero-mark">
+      <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M36 44L100 156L164 44" stroke="#B8F442" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="24" y1="100" x2="10" y2="100" stroke="#B8F442" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+        <line x1="20" y1="114" x2="9" y2="114" stroke="#B8F442" stroke-width="2" stroke-linecap="round" opacity=".18"/>
+        <line x1="176" y1="100" x2="190" y2="100" stroke="#B8F442" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+        <line x1="180" y1="114" x2="191" y2="114" stroke="#B8F442" stroke-width="2" stroke-linecap="round" opacity=".18"/>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-stripe"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span class="ticker-i">VELTRO LOGÍSTICA S.L.<span>///</span></span>
+    <span class="ticker-i">Intermediación mayorista<span>///</span></span>
+    <span class="ticker-i">Transporte nacional<span>///</span></span>
+    <span class="ticker-i">CNAE 4619<span>///</span></span>
+    <span class="ticker-i">CNAE 4941<span>///</span></span>
+    <span class="ticker-i">Trazabilidad GPS<span>///</span></span>
+    <span class="ticker-i">Marca registrada OEPM<span>///</span></span>
+    <span class="ticker-i">Respuesta 24h<span>///</span></span>
+    <span class="ticker-i">VELTRO LOGÍSTICA S.L.<span>///</span></span>
+    <span class="ticker-i">Intermediación mayorista<span>///</span></span>
+    <span class="ticker-i">Transporte nacional<span>///</span></span>
+    <span class="ticker-i">CNAE 4619<span>///</span></span>
+    <span class="ticker-i">CNAE 4941<span>///</span></span>
+    <span class="ticker-i">Trazabilidad GPS<span>///</span></span>
+    <span class="ticker-i">Marca registrada OEPM<span>///</span></span>
+    <span class="ticker-i">Respuesta 24h<span>///</span></span>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="srv-hdr reveal">
+    <div>
+      <div class="s-ey">Servicios</div>
+      <h2 class="s-h2">Dos líneas.<br>Una empresa.</h2>
+    </div>
+    <p class="srv-intro">Intermediamos entre compradores y proveedores de cualquier producto y transportamos la mercancía. Sin pasos innecesarios.</p>
+  </div>
+  <div class="srv-grid reveal">
+    <div class="srv">
+      <div class="srv-n">01</div>
+      <h3 class="srv-h">Intermediación mayorista</h3>
+      <p class="srv-p">Negociamos entre fabricantes y compradores para todo tipo de productos. Comisión sobre el valor de cada operación cerrada con éxito.</p>
+      <div class="srv-tags"><span class="tag">CNAE 4619</span><span class="tag">Comisión 3–8%</span><span class="tag">Nacional</span></div>
+    </div>
+    <div class="srv">
+      <div class="srv-n">02</div>
+      <h3 class="srv-h">Transporte por carretera</h3>
+      <p class="srv-p">Flota propia y red de autónomos colaboradores. Carga completa y grupaje con seguimiento GPS en tiempo real por toda España.</p>
+      <div class="srv-tags"><span class="tag">CNAE 4941</span><span class="tag">GPS tiempo real</span><span class="tag">Euro 6</span></div>
+    </div>
+    <div class="srv">
+      <div class="srv-n">03</div>
+      <h3 class="srv-h">Gestión integral</h3>
+      <p class="srv-p">Desde la negociación hasta la entrega. Contratos, albaranes, facturas electrónicas y carta de porte CMR gestionados digitalmente.</p>
+      <div class="srv-tags"><span class="tag">CMR</span><span class="tag">E-factura</span><span class="tag">0 papel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="reveal">
+  <div class="stats-g">
+    <div class="st"><div class="st-v">24<sup>h</sup></div><div class="st-l">Respuesta máx.</div></div>
+    <div class="st"><div class="st-v">98<sup>%</sup></div><div class="st-l">Entregas a tiempo</div></div>
+    <div class="st"><div class="st-v">1</div><div class="st-l">Interlocutor único</div></div>
+    <div class="st"><div class="st-v">0</div><div class="st-l">Papel en el proceso</div></div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="reveal">
+    <div class="s-ey">Cómo trabajamos</div>
+    <h2 class="s-h2">5 pasos.<br>Sin sorpresas.</h2>
+  </div>
+  <div class="proc-g reveal">
+    <div class="paso"><div class="paso-d">01</div><div class="paso-t">Consulta</div><p class="paso-p">Nos explicas producto, cantidad, origen y destino.</p></div>
+    <div class="paso"><div class="paso-d">02</div><div class="paso-t">Propuesta</div><p class="paso-p">Oferta detallada en menos de 24 horas.</p></div>
+    <div class="paso"><div class="paso-d">03</div><div class="paso-t">Acuerdo</div><p class="paso-p">Contrato digital y gestor asignado.</p></div>
+    <div class="paso"><div class="paso-d">04</div><div class="paso-t">Ejecución</div><p class="paso-p">Operación con trazabilidad total GPS.</p></div>
+    <div class="paso"><div class="paso-d">05</div><div class="paso-t">Cierre</div><p class="paso-p">Entrega confirmada y factura electrónica.</p></div>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section id="diferencial">
+  <div class="reveal">
+    <div class="s-ey">Por qué VELTRO LOGÍSTICA</div>
+    <h2 class="s-h2">Lo que nos<br>diferencia.</h2>
+  </div>
+  <div class="dif-g reveal">
+    <div class="dif">
+      <div class="dif-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M12 2L3 13h8l-1 7 9-11h-8l1-9z" stroke="#B8F442" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><h3>Velocidad de respuesta</h3><p>Presupuesto en menos de 24 horas. Ejecución ágil desde el primer día de contrato.</p></div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#B8F442" stroke-width="1.7"/><path d="M11 6v5l3.5 2" stroke="#B8F442" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+      <div><h3>Interlocutor único</h3><p>Un solo punto de contacto para intermediación y transporte. Sin reenvíos ni esperas.</p></div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C7.5 2 4 4.7 4 8.5c0 4.5 7 11 7 11s7-6.5 7-11C18 4.7 14.5 2 11 2z" stroke="#B8F442" stroke-width="1.7"/><circle cx="11" cy="8.5" r="2.2" stroke="#B8F442" stroke-width="1.7"/></svg></div>
+      <div><h3>Trazabilidad GPS</h3><p>Seguimiento en tiempo real desde la recogida hasta la entrega en destino.</p></div>
+    </div>
+    <div class="dif">
+      <div class="dif-ico"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2.5" y="2.5" width="17" height="17" rx="3" stroke="#B8F442" stroke-width="1.7"/><path d="M7 11l3 3 5-6" stroke="#B8F442" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><h3>Marca registrada OEPM</h3><p>VELTRO LOGÍSTICA es marca oficial registrada en España. Seriedad y protección legal desde el inicio.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="cto-g reveal">
+    <div class="cto-l">
+      <div class="s-ey">Contacto</div>
+      <h2 class="s-h2">Hablemos<br>de tu carga.</h2>
+      <p>Cuéntanos lo que necesitas. En menos de 24 horas tienes propuesta sobre la mesa, sin compromiso.</p>
+      <div class="cto-data">
+        <div class="cto-row">
+          <div class="cto-ico"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="2.5" width="13" height="10" rx="1.5" stroke="#B8F442" stroke-width="1.3"/><path d="M1 4l6.5 5L14 4" stroke="#B8F442" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <span>info@veltro.es</span>
+        </div>
+        <div class="cto-row">
+          <div class="cto-ico"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2.5 2s-1.5 1.5-1.5 3.5c0 4 3.5 7.5 7.5 7.5 2 0 3.5-1.5 3.5-1.5l-1.75-2.25L9 9.75S7.5 8.75 6.5 7.75 4.25 5.5 4.25 5.5L5 3.75 2.75 2H2.5z" stroke="#B8F442" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+          <span>+34 900 000 000</span>
+        </div>
+        <div class="cto-row">
+          <div class="cto-ico"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5.5" r="2.5" stroke="#B8F442" stroke-width="1.3"/><path d="M2 13c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="#B8F442" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+          <span>España · Cobertura nacional</span>
+        </div>
+      </div>
+    </div>
+    <div class="form">
+      <div class="f-row">
+        <div class="f-g"><label class="f-lbl">Nombre</label><input type="text" class="f-in" placeholder="Tu nombre"></div>
+        <div class="f-g"><label class="f-lbl">Empresa</label><input type="text" class="f-in" placeholder="Empresa S.L."></div>
+      </div>
+      <div class="f-g"><label class="f-lbl">Email</label><input type="email" class="f-in" placeholder="correo@empresa.com"></div>
+      <div class="f-g">
+        <label class="f-lbl">Servicio</label>
+        <select class="f-sel">
+          <option style="background:#1C2420">Selecciona un servicio…</option>
+          <option style="background:#1C2420">Intermediación al por mayor</option>
+          <option style="background:#1C2420">Transporte de mercancías</option>
+          <option style="background:#1C2420">Servicio integral</option>
+        </select>
+      </div>
+      <div class="f-g"><label class="f-lbl">Mensaje</label><textarea class="f-ta" placeholder="Producto, volumen, origen / destino, plazo…"></textarea></div>
+      <button class="f-btn" id="fsub">Enviar solicitud →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-g">
+    <div class="ft-brand">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="4" fill="#1C2420"/><path d="M5 6L14 22L23 6" stroke="#B8F442" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="logo-text" style="font-size:18px">VEL<span class="lt">TRO</span> <span style="color:var(--mist);font-size:14px;letter-spacing:.15em">LOGÍSTICA</span></span>
+      </div>
+      <p>Intermediación al por mayor y transporte de mercancías por carretera. España · Marca registrada OEPM.</p>
+    </div>
+    <div class="ft-col"><h4>Servicios</h4><ul><li><a href="#">Intermediación</a></li><li><a href="#">Transporte</a></li><li><a href="#">Gestión integral</a></li><li><a href="#">Documentación</a></li></ul></div>
+    <div class="ft-col"><h4>Empresa</h4><ul><li><a href="#">Quiénes somos</a></li><li><a href="#">Sostenibilidad</a></li><li><a href="#">Trabaja con nosotros</a></li></ul></div>
+    <div class="ft-col"><h4>Legal</h4><ul><li><a href="#">Aviso legal</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Cookies</a></li></ul></div>
+  </div>
+  <div class="ft-bot">
+    <p>© 2025 VELTRO LOGÍSTICA S.L. · Marca Registrada OEPM · Todos los derechos reservados</p>
+    <div class="ft-cnaes"><span class="cnae">CNAE 4619</span><span class="cnae">CNAE 4941</span></div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(es => {
+    es.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('on'),i*70); obs.unobserve(e.target); }});
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.borderBottomColor =
+      window.scrollY > 40 ? 'rgba(184,244,66,0.1)' : 'rgba(255,255,255,0.05)';
+  });
+
+  document.getElementById('fsub').addEventListener('click', () => {
+    const b = document.getElementById('fsub');
+    b.textContent = '✓ Solicitud enviada';
+    b.style.background = '#2A3330'; b.style.color = '#B8F442';
+    setTimeout(() => { b.textContent = 'Enviar solicitud →'; b.style.background = ''; b.style.color = ''; }, 3000);
+  });
+</script>
+</body>
+</html>
